@@ -1,0 +1,9 @@
+build/
+*.obj
+*.res
+*.pdb
+*.ilk
+*.exp
+*.lib
+.vs/
+.vscode/

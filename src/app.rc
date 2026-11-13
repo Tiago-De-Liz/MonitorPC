@@ -1,0 +1,94 @@
+#pragma code_page(65001)
+#include <windows.h>
+#include <commctrl.h>
+#include "resource.h"
+
+IDI_APP ICON "app.ico"
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "app.manifest"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+FILEFLAGSMASK 0x3fL
+FILEFLAGS 0x0L
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041604b0"
+        BEGIN
+            VALUE "FileDescription", "MonitorPC"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "InternalName", "MonitorPC"
+            VALUE "OriginalFilename", "MonitorPC.exe"
+            VALUE "ProductName", "MonitorPC"
+            VALUE "ProductVersion", "1.0.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x416, 1200
+    END
+END
+
+IDD_SETTINGS DIALOGEX 0, 0, 318, 262
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "MonitorPC — Configurações"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    GROUPBOX        "Lembretes de manutenção", IDC_STATIC, 7, 7, 304, 114
+    CONTROL         "", IDC_TASKS, "SysListView32", LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_NOSORTHEADER | WS_BORDER | WS_TABSTOP, 14, 20, 224, 76
+    PUSHBUTTON      "Adicionar…", IDC_ADD, 244, 20, 60, 14
+    PUSHBUTTON      "Editar…", IDC_EDIT, 244, 37, 60, 14
+    PUSHBUTTON      "Remover", IDC_DEL, 244, 54, 60, 14
+    PUSHBUTTON      "Feito hoje", IDC_DONE, 244, 82, 60, 14
+    LTEXT           "Mudar de cor quando faltarem", IDC_STATIC, 14, 104, 100, 8
+    EDITTEXT        IDC_WARN, 116, 102, 24, 12, ES_NUMBER | ES_AUTOHSCROLL
+    LTEXT           "dias para vencer", IDC_STATIC, 144, 104, 90, 8
+
+    GROUPBOX        "Aparência", IDC_STATIC, 7, 125, 148, 76
+    LTEXT           "Opacidade:", IDC_STATIC, 14, 141, 40, 8
+    CONTROL         "", IDC_OPACITY, "msctls_trackbar32", TBS_HORZ | TBS_NOTICKS | WS_TABSTOP, 54, 138, 72, 14
+    LTEXT           "88%", IDC_OPACITY_LBL, 128, 141, 22, 8
+    LTEXT           "Tamanho:", IDC_STATIC, 14, 160, 40, 8
+    COMBOBOX        IDC_SCALE, 58, 158, 52, 120, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "Ficar opaco ao passar o mouse", IDC_HOVER, 14, 180, 136, 10
+
+    GROUPBOX        "Monitoramento", IDC_STATIC, 161, 125, 150, 76
+    LTEXT           "Atualizar a cada:", IDC_STATIC, 168, 141, 58, 8
+    COMBOBOX        IDC_INTERVAL, 228, 139, 40, 80, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "RAM", IDC_SHOWRAM, 168, 157, 32, 10
+    AUTOCHECKBOX    "FPS", IDC_SHOWFPS, 202, 157, 30, 10
+    AUTOCHECKBOX    "FPS em janela", IDC_FPSWINDOWED, 236, 157, 70, 10
+    LTEXT           "Alerta °C (amarelo / vermelho)", IDC_STATIC, 168, 171, 138, 8
+    LTEXT           "CPU", IDC_STATIC, 168, 185, 16, 8
+    EDITTEXT        IDC_CPUWARN, 186, 183, 20, 12, ES_NUMBER | ES_AUTOHSCROLL
+    EDITTEXT        IDC_CPUCRIT, 209, 183, 20, 12, ES_NUMBER | ES_AUTOHSCROLL
+    LTEXT           "GPU", IDC_STATIC, 242, 185, 16, 8
+    EDITTEXT        IDC_GPUWARN, 260, 183, 20, 12, ES_NUMBER | ES_AUTOHSCROLL
+    EDITTEXT        IDC_GPUCRIT, 283, 183, 20, 12, ES_NUMBER | ES_AUTOHSCROLL
+
+    AUTOCHECKBOX    "Iniciar com o Windows", IDC_AUTOSTART, 9, 209, 140, 10
+    LTEXT           "", IDC_STATUS, 9, 225, 190, 26
+    DEFPUSHBUTTON   "OK", IDOK, 205, 241, 50, 14
+    PUSHBUTTON      "Cancelar", IDCANCEL, 261, 241, 50, 14
+END
+
+IDD_TASK DIALOGEX 0, 0, 222, 96
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Lembrete"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    LTEXT           "Nome:", IDC_STATIC, 7, 10, 62, 8
+    EDITTEXT        IDC_T_NAME, 72, 8, 143, 12, ES_AUTOHSCROLL
+    LTEXT           "Repetir a cada:", IDC_STATIC, 7, 29, 62, 8
+    EDITTEXT        IDC_T_EVERY, 72, 27, 30, 12, ES_NUMBER | ES_AUTOHSCROLL
+    COMBOBOX        IDC_T_UNIT, 106, 27, 52, 60, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Feito pela última vez:", IDC_STATIC, 7, 48, 64, 8
+    CONTROL         "", IDC_T_LAST, "SysDateTimePick32", DTS_SHORTDATECENTURYFORMAT | WS_TABSTOP, 72, 46, 72, 13
+    DEFPUSHBUTTON   "OK", IDOK, 111, 75, 50, 14
+    PUSHBUTTON      "Cancelar", IDCANCEL, 165, 75, 50, 14
+END
